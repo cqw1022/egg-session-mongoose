@@ -1,0 +1,15 @@
+{
+  "name": "egg-session-mongoose",
+  "version": "1.0.0",
+  "description": "",
+  "eggPlugin": {
+    "name": "sessionMongoose",
+    "dependencies": [ "mongoose" ]
+  },
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

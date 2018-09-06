@@ -1,0 +1,3 @@
+exports.sessionMongoose = {
+  name: 'Session',
+};
