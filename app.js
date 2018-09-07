@@ -15,7 +15,6 @@ module.exports = app => {
   app.sessionStore = {
     async get(key) {
       return new Promise((resolve, reject) => {
-        console.log('call get')
         mongoose.models.Session.findOne({s_id: key}, (err, session) => {
           if (err) {
             console.error(err);
