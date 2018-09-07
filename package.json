@@ -1,10 +1,12 @@
 {
   "name": "egg-session-mongoose",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "eggPlugin": {
     "name": "sessionMongoose",
-    "dependencies": [ "mongoose" ]
+    "dependencies": [
+      "mongoose"
+    ]
   },
   "main": "app.js",
   "scripts": {
