@@ -43,9 +43,11 @@ exports.sessionMongoose = {
 };
 ```
 
-## Questions & Suggestions
+## LINK
 
-Please open an issue [here](https://github.com/woodensail/egg-session-mongoose/issues).
+[Questions](https://github.com/woodensail/egg-session-mongoose/issues)
+
+[Github](https://github.com/woodensail/egg-session-mongoose)
 
 ## License
 
