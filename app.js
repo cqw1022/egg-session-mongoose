@@ -41,7 +41,7 @@ module.exports = app => {
       // 跟据当前时间和maxAge计算过期时间
       let saveExpire = new Date(new Date().getTime() + maxAge);
       // 跟据sessionId查找并更新session。查询不到则插入新记录
-      mongoose.models.Session.findOneAndUpdate({s_id: key,}, {
+      await mongoose.models.Session.findOneAndUpdate({s_id: key,}, {
         data: saveValue,
         expire: saveExpire
       }, {upsert: true}, (err, session) => {
@@ -52,7 +52,7 @@ module.exports = app => {
     },
     async destroy(key) {
       // 销毁session
-      mongoose.models.Session.remove({s_id: key})
+      await mongoose.models.Session.remove({s_id: key})
     },
   };
 };
