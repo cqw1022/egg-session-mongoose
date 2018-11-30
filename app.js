@@ -11,8 +11,12 @@ module.exports = app => {
       default: Date.now, expires: '0'
     },
   });
-
-  mongoose.model(app.config.sessionMongoose.name, SessionSchema);
+  
+  if (app.config.conn) {
+    app.mongooseDB.get(app.config.conn).model(app.config.sessionMongoose.name, SessionSchema);
+  } else {
+    mongoose.model(app.config.sessionMongoose.name, SessionSchema);
+  }
 
   //实现sessionStore
   app.sessionStore = {
