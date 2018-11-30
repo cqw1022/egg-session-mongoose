@@ -3,6 +3,7 @@ module.exports = app => {
   // 定义collection，用于存储session
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
+  const ModelName = app.config.sessionMongoose.name;
   const SessionSchema = new Schema({
     data: {type: String}, // session内容
     s_id: {type: String}, // sessionId
@@ -13,9 +14,9 @@ module.exports = app => {
   });
   
   if (app.config.conn) {
-    app.mongooseDB.get(app.config.conn).model(app.config.sessionMongoose.name, SessionSchema);
+    app.mongooseDB.get(app.config.conn).model(ModelName, SessionSchema);
   } else {
-    mongoose.model(app.config.sessionMongoose.name, SessionSchema);
+    mongoose.model(ModelName, SessionSchema);
   }
 
   //实现sessionStore
@@ -23,7 +24,7 @@ module.exports = app => {
     async get(key) { // 读session
       return new Promise((resolve, reject) => {
         // 跟据sessionId查找session
-        mongoose.models.Session.findOne({s_id: key}, (err, session) => {
+        mongoose.models[ModelName].findOne({s_id: key}, (err, session) => {
           if (err) {
             console.error(err);
             resolve(null);
@@ -45,7 +46,7 @@ module.exports = app => {
       // 跟据当前时间和maxAge计算过期时间
       let saveExpire = new Date(new Date().getTime() + maxAge);
       // 跟据sessionId查找并更新session。查询不到则插入新记录
-      await mongoose.models.Session.findOneAndUpdate({s_id: key,}, {
+      await mongoose.models[ModelName].findOneAndUpdate({s_id: key,}, {
         data: saveValue,
         expire: saveExpire
       }, {upsert: true}, (err, session) => {
@@ -56,7 +57,7 @@ module.exports = app => {
     },
     async destroy(key) {
       // 销毁session
-      await mongoose.models.Session.remove({s_id: key})
+      await mongoose.models[ModelName].remove({s_id: key})
     },
   };
 };
